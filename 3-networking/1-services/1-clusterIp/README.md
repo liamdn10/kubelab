@@ -1,22 +1,23 @@
 # Giới thiệu
 
-Bài lab tạo service đơn giản cho nginx
+Bài lab tạo service clusterIp đơn giản
 
 # Mục tiêu bài lab
 
-Mô tả ngắn gọn, trọng tâm mục tiêu của bài lab
+Bài lab giúp học viên nắm được mô hình hoạt động của clusterIp service
 
 Sau bài lab, học viên cần nắm được các nội dung:
-- Nội dung 1
-- Nội dung 2
-- Nội dung 3
+- Hiểu được cơ chế hoạt động cơ bản của clusterIp service
+- Có khả năng tạo được clusterIP service phục vụ truy cập tới ứng dụng
 
 # Chuẩn bị
 
-Để hoàn thành bài lab, học viên cần chuẩn bị:
-- chuẩn bị 1
-- chuẩn bị 2
-- chuẩn bị 3
+Để hoàn thành bài lab, người học cần chuẩn bị:
+
+- Cài đặt kubectl trên client
+- Cluster Kubernetes đang hoạt động và người học có khả năng kết nối tới cluster này
+- Có thể sử dụng các công cụ như minikube, docker-desktop kubernetes, KinD,... trên môi trường lab
+- thực hiện cấu hình alias trên terminal bằng command "alias k=kubectl"
 
 # Các bước thực hiện
 
