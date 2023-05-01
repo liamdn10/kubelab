@@ -174,8 +174,18 @@ Sau đó, học viên tiếp tục kiểm tra thông tin "endpoint" với comman
 ```bash
 k describe endpoints whoami
 ```
+### Bước 4: thực hiện truy cập tới ứng dụng whoami thông qua service
 
-### Bước 4: truy cập tới ứng dụng whoami thông qua service
+
+> **Note**
+> Học viên thực hiện kiểm tra truy cập tới service whoami dựa trên một trong hai cách sau:
+> - 4-1: sử dụng port-forwarding tới service whoami
+> - 4-2: tạo pod ubuntu và truy cập tới service whoami
+
+
+### Bước 4-1: sử dụng kube-proxy
+
+Thực hiện tạo kube-proxy cho phép truy cập tới service
 
 ```bash
 $ k port-forward service/whoami 8080:80
@@ -200,7 +210,65 @@ User-Agent: curl/7.81.0
 Accept: */*
 ```
 
-Tiếp đó, thực hiện tăng số lượng replica của deployment whoami lên 3
+### Bước 4-2: sử dụng container ubuntu
+
+Tạo template yaml cho Pod Ubuntu:22.04
+
+```bash
+$ k run ubuntu --image ubuntu:20.04 --dry-run=client -o yaml > template/ubuntu.yaml
+```
+
+Thực hiện cập nhật nội dung file yaml `template/ubuntu.yaml`
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: ubuntu
+  name: ubuntu
+spec:
+  containers:
+  - image: ubuntu:20.04
+    name: ubuntu
+    resources: {}
+    // thêm dòng command phía dưới
+    command: ["sleep", "1000"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+```
+
+Kiểm tra Pod ubuntu, chờ cho Pod hoàn tất khởi động và chuyển sang trạng thái RUNNING
+
+```bash
+$ k get pods ubuntu
+NAME     READY   STATUS    RESTARTS   AGE
+ubuntu   1/1     Running   0          81s
+```
+
+Sau khi xác nhận Pod ubuntu đã READY, thực hiện truy cập tới Pod
+
+```bash
+$ k exec -ti ubuntu -- bash
+root@ubuntu:/# 
+```
+
+(Optional) thực hiện cài đặt công cụ curl trên container Ubuntu
+
+```bash
+root@ubuntu:/# apt update
+root@ubuntu:/# apt install curl -y
+```
+
+Tại giao diện terminal (đã hiện thị `root@ubuntu:/#`), thực hiện kiểm tra kết nối tới service whoami và đánh giá kết quả
+
+```bash
+root@ubuntu:/# curl whoami:80
+```
+
+Tiếp đó, thực hiện tăng số lượng replica của deployment whoami lên 3 và tiếp thực hiện lại thao tác `curl whoami:80` và đánh giá kết quả được trả về
 
 ```bash
 $ k scale --replicas=3 deployment/whoami

@@ -3,14 +3,14 @@ kind: Pod
 metadata:
   creationTimestamp: null
   labels:
-    run: busybox
-  name: busybox
+    run: ubuntu
+  name: ubuntu
 spec:
   containers:
-  - image: busybox
-    name: busybox
+  - image: ubuntu:20.04
+    name: ubuntu
     resources: {}
-    command: ["/bin/sh", "-ec", "sleep 1000"]
+    command: ["sleep", "1000"]
   dnsPolicy: ClusterFirst
   restartPolicy: Always
 status: {}
