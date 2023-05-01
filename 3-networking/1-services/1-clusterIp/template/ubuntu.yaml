@@ -10,6 +10,7 @@ spec:
   - image: ubuntu:20.04
     name: ubuntu
     resources: {}
+    # thêm command
     command: ["sleep", "1000"]
   dnsPolicy: ClusterFirst
   restartPolicy: Always
