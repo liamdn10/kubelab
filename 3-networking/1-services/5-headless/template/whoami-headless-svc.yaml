@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: whoami-headless
+  name: whoami-headless
+spec:
+  # thêm dòng cấu hình `clusterIp: None`
+  clusterIP: None
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    # cập nhật `app: whoami-headless` thành `app:whoami`
+    # app: whoami-headless
+    app: whoami
+  type: ClusterIP
+status:
+  loadBalancer: {}
