@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: ubuntu
+  name: ubuntu
+  namespace: demo-02
+spec:
+  containers:
+  - image: ubuntu:20.04
+    name: ubuntu
+    resources: {}
+    # thêm dòng `command: ["sleep", "1000"]` phía dưới
+    command: ["sleep", "1000"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: whoami
+  name: whoami
+  namespace: demo-01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whoami
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: whoami
+    spec:
+      containers:
+      - image: containous/whoami
+        name: whoami
+        resources: {}
+status: {}
