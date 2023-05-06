@@ -47,13 +47,13 @@ k config use-context kind-create-simple-pod
 Trên giao diện terminal, thực hiện nhập command sau để tạo pod template:
 
 ```bash
-$ k run nginx --image nginx --dry-run=client -o yaml > pod.yaml
+$ k run nginx --image nginx --dry-run=client -o yaml > templates/pod.yaml
 ```
 
 Kiểm tra thông tin trên pod template vừa được tạo và tiến hành phân tích nội dung:
 
 ```bash
-$ cat pod.yaml
+$ cat templates/pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -76,13 +76,13 @@ status: {}
 Trên terminal, thực hiện command:
 
 ```bash
-$ k create -f pod.yaml
+$ k create -f templates/pod.yaml
 ```
 
 Khi pod được tạo thành công, thông báo sẽ được thể hiện trên terminal
 
 ```bash
-$ k create -f pod.yaml
+$ k create -f templates/pod.yaml
 pod/nginx created
 ```
 
@@ -124,5 +124,5 @@ $ k get pod nginx -o yaml
 Sau khi hoàn thành bài lab, học viên thực hiện xóa các tài nguyên
 
 ```bash
-$ k delete -f pod.nginx
+$ k delete -f templates/
 ```
