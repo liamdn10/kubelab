@@ -2,6 +2,10 @@
 
 bài lab hướng dẫn truy cập vào pod thông qua command `kubectl exec`
 
+> **Note**
+>
+> Học viên có thể thử nghiệm nhiều hơn dựa trên các tài liệu chính thống của Kubernetes: https://kubernetes.io/docs/tasks/debug/debug-application/get-shell-running-container/
+
 # Mục tiêu bài lab
 
 # Chuẩn bị
