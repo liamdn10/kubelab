@@ -2,6 +2,9 @@
 
 Bài lab tạo hostPath kubernetes volume
 
+- Toàn bộ nội dung về hostPath được mô tả tại tài liệu chính thống của Kubernetes: [Kubernetes doc: Volumes](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
+- Học viên có thể mở rộng bằng cách so sánh hostPath trong bài lab này và hostPath khi triển khai persistent volume
+
 # Mục tiêu bài lab
 
 Bài lab giúp học viên nắm được mô hình hoạt động cơ bản của hostPath volume
