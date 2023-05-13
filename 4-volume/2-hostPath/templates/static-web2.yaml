@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: static-web2
+  name: static-web2
+spec:
+  volumes:
+  # thêm cấu hình hostPath volume, trong đó, học viên chú ý thay đổi phần hostPath.path thành địa chỉ thư mục đã lưu lại sau bước 1
+  - name: static-web-src
+    hostPath:
+      path: /hostPathLab/html
+  containers:
+  - image: nginx
+    name: static-web2
+    resources: {}
+    # thêm cấu hình mount volume /usr/share/nginx/html vào volume static-web-src
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: static-web-src
+  # thêm thông tin về nodeName nhằm đảm bảo pod sẽ chạy lên không nằm ở node đã được cấu hình hostPath ở bước 1
+  nodeName: host-path-worker1
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
