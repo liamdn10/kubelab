@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mysql
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mysql
+    spec:
+      volumes:
+      - name: hostPath
+        hostPath:
+          path: /hostPath
+      containers:
+      - image: mysql
+        name: mysql
+        resources: {}
+        volumeMounts:
+        - name: hostPath
+          mountPath: /hostPath
+
+status: {}
