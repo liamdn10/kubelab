@@ -1,0 +1,10 @@
+groups:
+- name: example
+  rules:
+  - alert: NodeLowMemoryFree
+    expr: node_memory_MemFree_bytes < 200000
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: Node low memory free

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: prometheus
+  name: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - image: prom/prometheus:latest
+        name: prometheus
+        resources: {}
+        args:
+        - --config.file=/etc/prometheus/prometheus.yml
+        - --storage.tsdb.path=/prometheus/
+        - --web.enable-lifecycle
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: /etc/prometheus/
+          name: prometheus-config
+      volumes:
+      - configMap:
+          name: prometheus-config
+        name: prometheus-config
+status: {}

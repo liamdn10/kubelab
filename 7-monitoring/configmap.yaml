@@ -1,0 +1,58 @@
+apiVersion: v1
+data:
+  prometheus.rules: |
+    groups:
+    - name: example
+      rules:
+      - alert: NodeLowMemoryFree
+        expr: node_memory_MemFree_bytes < 300000000
+        for: 1m
+        labels:
+          severity: page
+        annotations:
+          summary: Node low memory free
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      scrape_timeout: 10s
+      evaluation_interval: 15s
+    rule_files:
+      - /etc/prometheus/prometheus.rules
+    alerting:
+      alertmanagers:
+      - follow_redirects: true
+        enable_http2: true
+        scheme: http
+        timeout: 10s
+        api_version: v2
+        static_configs:
+        - targets: []
+    scrape_configs:
+    - job_name: prometheus
+      honor_timestamps: true
+      scrape_interval: 15s
+      scrape_timeout: 10s
+      metrics_path: /metrics
+      scheme: http
+      follow_redirects: true
+      enable_http2: true
+      static_configs:
+      - targets:
+        - localhost:9090
+    - job_name: node-exporter
+      honor_timestamps: true
+      scrape_interval: 15s
+      scrape_timeout: 10s
+      metrics_path: /metrics
+      scheme: http
+      follow_redirects: true
+      enable_http2: true
+      static_configs:
+      - targets:
+        - 172.18.0.2:9100
+        - 172.18.0.3:9100
+        - 172.18.0.4:9100
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: prometheus-config
